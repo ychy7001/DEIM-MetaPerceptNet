@@ -1,0 +1,41 @@
+task: detection
+
+evaluator:
+  type: CocoEvaluator
+  iou_types: ['bbox', ]
+
+num_classes: 2 # your dataset classes
+remap_mscoco_category: False
+
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /chenyan123/Vision/3.Detection/datasets/coco/thyroid_bm_b-mode/images/train
+    ann_file: /chenyan123/Vision/3.Detection/datasets/coco/thyroid_bm_b-mode/annotations/train.json
+    return_masks: False
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: True
+  num_workers: 4
+  drop_last: True
+  collate_fn:
+    type: BatchImageCollateFunction
+
+
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /chenyan123/Vision/3.Detection/datasets/coco/thyroid_bm_b-mode/images/val
+    ann_file: /chenyan123/Vision/3.Detection/datasets/coco/thyroid_bm_b-mode/annotations/val.json
+    return_masks: False
+    transforms:
+      type: Compose
+      ops: ~
+  shuffle: False
+  num_workers: 4
+  drop_last: False
+  collate_fn:
+    type: BatchImageCollateFunction
